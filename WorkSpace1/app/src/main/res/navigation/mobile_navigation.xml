@@ -32,9 +32,10 @@
             android:label="Setting"
             tools:layout="@layout/fragment_setting" />
     <fragment
-            android:id="@+id/nav_alert"
-            android:name="com.example.workspace1.ui.alert.AlertFragment"
-            android:label="Alert"
-            tools:layout="@layout/fragment_alert" />
+            android:id="@+id/nav_profile"
+            android:name="com.example.workspace1.ui.profile.ProfileFragment"
+            android:label="Profile"
+            tools:layout="@layout/fragment_pofile" />
+
 
 </navigation>

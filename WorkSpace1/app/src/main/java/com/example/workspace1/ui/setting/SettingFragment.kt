@@ -12,20 +12,12 @@ import com.example.workspace1.R
 
 class SettingFragment : Fragment() {
 
-    private lateinit var settingViewModel: SettingViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        settingViewModel =
-            ViewModelProviders.of(this).get(SettingViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_setting, container, false)
-        val textView: TextView = root.findViewById(R.id.text_setting)
-        settingViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
-        return root
+        return inflater.inflate(R.layout.fragment_setting, container, false)
+
     }
 }
