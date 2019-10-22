@@ -15,7 +15,7 @@
             android:background="@drawable/login_secondary_background"
             android:ems="10"
             android:hint="Value"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
