@@ -19,7 +19,6 @@ class Demo1MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_demo1_main)
 
      newValue=savedInstanceState?.getInt(newValueState)?:0
-
       btnShowValue.setOnClickListener{
           val intent = Intent(this@Demo1MainActivity,Demo1LstActivity::class.java)
           intent.putExtra(newValueState,newValue)
@@ -50,8 +49,8 @@ class Demo1MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        super.onSaveInstanceState(outState, outPersistentState)
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
         outState?.putInt(newValueState,newValue)
     }
 }
