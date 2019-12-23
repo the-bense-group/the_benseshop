@@ -96,7 +96,7 @@ class _UILoginMobile extends StatelessWidget {
               height: 20,
             ),
             CustomAnimateController(
-              form: UIRegister(),
+              form: UIMain(),
               duration: 1.3,
               // hideIcon: true,
               // action: Center(

@@ -119,7 +119,7 @@ class _CustomAnimateControllerState extends State<CustomAnimateController>
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        color: Colors.blue.withOpacity(.4)),
+                        color: Theme.of(context).primaryColorDark.withOpacity(.4)),
                     child: InkWell(
                       onTap: () {
                         _scaleController.forward();
@@ -138,7 +138,7 @@ class _CustomAnimateControllerState extends State<CustomAnimateController>
                                     height: widget.actionHeight,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: Colors.blue),
+                                        color: Theme.of(context).primaryColor),
                                     child: hideIcon == false
                                         ? Icon(
                                             Icons.arrow_forward,

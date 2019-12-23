@@ -23,7 +23,15 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.blue,
+        primaryColor: Color(0xFFE91E63),
+        primaryColorDark: Color(0xFFC2185B),
+        primaryColorLight: Color(0xFFF8BBD0),
+        textTheme: TextTheme(caption: TextStyle(color: Color(0xFFFFFFFF))),
+        accentColor: Color(0xFFFF5722),
+        dividerColor: Color(0xFFBDBDBD),
+        primaryTextTheme: TextTheme(title:TextStyle(color: Color(0xFF757575)) , caption: TextStyle(color: Color(0xFF212121))),
+        
       ),
       home: HomePage(),
     );
