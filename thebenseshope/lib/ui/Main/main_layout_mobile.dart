@@ -14,28 +14,42 @@ class __UIMainMobileState extends State<_UIMainMobile> {
       appBar: AppBar(
         brightness: Brightness.light,
         leading: Icon(
-          Icons.menu,
+          Icons.store,
+          size: 32,
           color: Theme.of(context).textTheme.caption.color,
         ),
         actions: <Widget>[
-          Spacer(flex: 3,),
+          Spacer(
+            flex: 3,
+          ),
           Expanded(
             flex: 12,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0,vertical: 8.0),
-              child: Material(
-                borderRadius: BorderRadius.circular(100),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 6.0),
-                              child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Search"
-                  ),
-                ),
-                            ),
-              ),
+               padding: EdgeInsets.symmetric(vertical: 6.0),
+              child: Container(
+              
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),color: Theme.of(context).primaryColorDark.withOpacity(.4),),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'The bense shop'.toUpperCase(),
+                    style: TextStyle(fontSize: 16),
+                  )),
             ),
+            // child: Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 6.0,vertical: 8.0),
+            //   child: Material(
+            //     borderRadius: BorderRadius.circular(100),
+            //                 child: Container(
+            //                   padding: EdgeInsets.symmetric(horizontal: 6.0),
+            //                   child: TextField(
+            //       decoration: InputDecoration(
+            //         border: InputBorder.none,
+            //         hintText: "Search"
+            //       ),
+            //     ),
+            //                 ),
+            //   ),
+            // ),
           ),
           Stack(
             fit: StackFit.passthrough,
@@ -51,17 +65,20 @@ class __UIMainMobileState extends State<_UIMainMobile> {
                 top: 6.0,
                 left: 4.0,
                 child: Container(
-                  padding: EdgeInsets.all(4.0),
-                    decoration:
-                        BoxDecoration(color: Theme.of(context).accentColor,shape:BoxShape.circle),
-                    child: Text('2',style: TextStyle(fontSize: 10),)),
+                    padding: EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).accentColor,
+                        shape: BoxShape.circle),
+                    child: Text(
+                      '2',
+                      style: TextStyle(fontSize: 10),
+                    )),
               )
             ],
           ),
           Padding(
             padding: const EdgeInsets.only(right: 6.0),
             child: CircleAvatar(
-              
               child: Icon(Icons.person_pin),
             ),
           )
