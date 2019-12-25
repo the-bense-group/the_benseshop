@@ -1,16 +1,10 @@
-part of 'main_layout.dart';
+part of 'search.dart';
+class _UISearchMobile extends StatelessWidget {
+  const _UISearchMobile({Key key}) : super(key: key);
 
-class _UIMainMobile extends StatefulWidget {
-  @override
-  __UIMainMobileState createState() => __UIMainMobileState();
-}
-
-class __UIMainMobileState extends State<_UIMainMobile> {
-  int currentPage = 0;
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
-    return Scaffold(
+     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.light,
         leading: Padding(
@@ -21,7 +15,7 @@ class __UIMainMobileState extends State<_UIMainMobile> {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.all(6.0),
-                  child: Icon(Icons.person_pin),
+                  child: Icon(Icons.arrow_back),
                   decoration: BoxDecoration(shape: BoxShape.circle),
                 ),
                 Positioned.fill(
@@ -100,16 +94,7 @@ class __UIMainMobileState extends State<_UIMainMobile> {
       body: Container(
         child: Text("Main"),
       ),
-      bottomNavigationBar: CircleBottomNavigation(
-        initialSelection: currentPage,
-        tabs: [
-          TabData(icon: Icons.home, title: 'Home'),
-          TabData(icon: Icons.shopping_cart, title: "Delivery"),
-          TabData(icon: Icons.search, title: "Location"),
-          TabData(icon: Icons.chat, title: "Chat"),
-        ],
-        onTabChangedListener: (index) => setState(() => currentPage = index),
-      ),
+     
     );
   }
 }
