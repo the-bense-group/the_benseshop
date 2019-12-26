@@ -1,9 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:thebenseshope/animations/route_animation.dart';
 
-import '../main_layout.dart';
+import 'package:loader_search_bar/loader_search_bar.dart';
 
- part 'search_mobile.dart';
+part 'search_mobile.dart';
+
 class UISearch extends StatelessWidget {
   const UISearch({Key key}) : super(key: key);
 
