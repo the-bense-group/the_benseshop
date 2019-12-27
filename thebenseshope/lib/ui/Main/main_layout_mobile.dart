@@ -5,6 +5,100 @@ class _UIMainMobile extends StatefulWidget {
   __UIMainMobileState createState() => __UIMainMobileState();
 }
 
+var dateString = 'What date are you looking for?';
+Widget _children(BuildContext context, int indx) {
+  if (indx == 0) {
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: new AssetImage('assets/food_delivery.jpg'),
+        colorFilter: ColorFilter.mode(Colors.black38, BlendMode.darken),
+        fit: BoxFit.cover,
+      )),
+      child: CustomScrollView(
+        slivers: <Widget>[
+          SliverPersistentHeader(
+            delegate: MySliverAppBar(
+                expandedHeight: MediaQuery.of(context).size.height * .36),
+            pinned: true,
+            floating: true,
+
+            // floating: true,
+          ),
+          SliverFillRemaining(
+            child: FadeAnimation(
+              1.2,
+              Container(
+                padding: EdgeInsets.only(top: 64.0),
+                child: Column(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        DatePicker.showDatePicker(context,
+                            showTitleActions: true,
+                            minTime: DateTime(2018, 1, 1),
+                            maxTime: DateTime(2030, 12, 30),
+                            theme: DatePickerTheme(
+                                headerColor: Theme.of(context).primaryColor,
+                                backgroundColor: Colors.white,
+                                itemStyle: TextStyle(
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                                cancelStyle: TextStyle(color: Colors.white),
+                                doneStyle: TextStyle(
+                                    color: Colors.white, fontSize: 16)),
+                            //              onChanged: (date) {
+                            //   print('change $date in time zone ' +
+                            //       date.timeZoneOffset.inHours.toString());
+                            // },
+                            onConfirm: (date) {
+                          dateString = date.day.toString() +
+                              "- " +
+                              date.month.toString() +
+                              "- " +
+                              date.year.toString();
+
+                          (context as Element).markNeedsBuild();
+                        }, currentTime: DateTime.now(), locale: LocaleType.en);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white54,
+                          // borderRadius: BorderRadius.circular(100)
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        alignment: Alignment.center,
+                        child: Text(
+                          dateString,
+                          style: TextStyle(fontSize: 18, color: Colors.black54),
+                        ),
+                      ),
+                    ),
+                    Container(
+                        // color: Colors.white,
+                        ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // new SliverList(
+          //     delegate: new SliverChildListDelegate(
+          //   _buildList(50),
+          // )),
+        ],
+      ),
+    );
+  } else if (indx == 1) {
+    return Text('Divery');
+  } else if (indx == 2) {
+    return Text('Location');
+  } else {
+    return Text('Chat');
+  }
+}
+
 class __UIMainMobileState extends State<_UIMainMobile> {
   int currentPage = 0;
   @override
@@ -34,6 +128,7 @@ class __UIMainMobileState extends State<_UIMainMobile> {
         //   gravity: SearchItemGravity.end,
         // ),
         defaultBar: AppBar(
+          elevation: 0,
           leading: _leadingButton,
           title: Padding(
             padding: EdgeInsets.symmetric(vertical: 6.0),
@@ -83,20 +178,7 @@ class __UIMainMobileState extends State<_UIMainMobile> {
           animateChanges: true,
         ),
       ),
-      body: Container(
-        color: Colors.white,
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverPersistentHeader(
-              delegate: MySliverAppBar(
-                  expandedHeight: MediaQuery.of(context).size.height * .36),
-              pinned: true,
-            ),
-            new SliverList(
-                delegate: new SliverChildListDelegate(_buildList(50))),
-          ],
-        ),
-      ),
+      body: _children(context, currentPage),
       bottomNavigationBar: CircleBottomNavigation(
         initialSelection: currentPage,
         tabs: [
@@ -461,323 +543,437 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Stack(
-      fit: StackFit.expand,
-      overflow: Overflow.visible,
-      children: [
-        // Image.asset(
-        //   "assets/food_delivery.jpg",
-        //   fit: BoxFit.fill,
-        // ),
-        Container(
-          color: Theme.of(context).accentColor,
-        ),
-        Center(
-          child: Opacity(
-            opacity: shrinkOffset / expandedHeight,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "Pending",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 23,
-                  ),
-                ),
-                Text(
-                  "Delivered",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 23,
-                  ),
-                ),
-                Text(
-                  "Hold",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 23,
-                  ),
-                ),
-                Text(
-                  "Refund",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 23,
-                  ),
-                ),
-              ],
+    return FadeAnimation(
+      1.1,
+      Container(
+        child: Stack(
+          fit: StackFit.expand,
+          overflow: Overflow.visible,
+          children: [
+            // Image.asset(
+            //   "assets/food_delivery.jpg",
+            //   fit: BoxFit.fill,
+            // ),
+            ClipPath(
+              child: Container(
+                color: Theme.of(context).primaryColor.withOpacity(.5),
+              ),
+              clipper: CustomClipPath(),
             ),
-          ),
-        ),
-        Positioned(
-          child: Opacity(
-            opacity: (1 - shrinkOffset / expandedHeight),
-            child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: new AssetImage('assets/food_delivery1.jpg'),
-                fit: BoxFit.cover,
-              )),
-              height: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
+            Center(
+              child: Opacity(
+                opacity: shrinkOffset / expandedHeight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Expanded(
-                      flex: 6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 6,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 12.0, horizontal: 20.0),
-                              child: Container(
-                                padding: EdgeInsets.all(4.0),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 3, color: Colors.white),
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withBlue(2)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 4,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.local_shipping,
-                                            size: 26,
-                                            color: Colors.white,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 4.0),
-                                            child: Text('Delivery',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.white,
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 9,
-                                      child: Center(
-                                        child: Text('5',
-                                            style: TextStyle(
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white,
-                                            )),
-                                      ),
-                                    ),
-                                  ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2.0),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 4.0),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(.6),
+                            borderRadius: BorderRadius.circular(6.0)),
+                        alignment: Alignment.center,
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.local_shipping,
+                              color: Colors.white,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 2.0),
+                              child: Text(
+                                "Deliver",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
                                 ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 6,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 12.0, horizontal: 20.0),
-                              child: Container(
-                                padding: EdgeInsets.all(4.0),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 3, color: Colors.white),
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        .withBlue(2)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 4,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.monetization_on,
-                                            size: 26,
-                                            color: Colors.white,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 4),
-                                            child: Text('Payment',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.white,
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 9,
-                                      child: Center(
-                                        child: Text('1',
-                                            style: TextStyle(
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white,
-                                            )),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                    Expanded(
-                      flex: 6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 6,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 12.0, horizontal: 20.0),
-                              child: Container(
-                                padding: EdgeInsets.all(4.0),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 3, color: Colors.white),
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: Theme.of(context)
-                                        .primaryColorLight
-                                        .withGreen(2)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 4,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.local_shipping,
-                                            size: 26,
-                                            color: Colors.white,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 4.0),
-                                            child: Text('Pending',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.white,
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 9,
-                                      child: Center(
-                                        child: Text('3',
-                                            style: TextStyle(
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white,
-                                            )),
-                                      ),
-                                    ),
-                                  ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2.0),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 4.0),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(.6),
+                            borderRadius: BorderRadius.circular(6.0)),
+                        alignment: Alignment.center,
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.monetization_on,
+                              color: Colors.white,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 2.0),
+                              child: Text(
+                                "Payment",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
                                 ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 6,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 12.0, horizontal: 20.0),
-                              child: Container(
-                                padding: EdgeInsets.all(4.0),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 3, color: Colors.white),
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: Theme.of(context)
-                                        .primaryColorDark
-                                        .withBlue(2)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 4,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.assignment_return,
-                                            size: 26,
-                                            color: Colors.white,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 4),
-                                            child: Text('Return',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.white,
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 9,
-                                      child: Center(
-                                        child: Text('1',
-                                            style: TextStyle(
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white,
-                                            )),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    )
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2.0),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 4.0),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(.6),
+                            borderRadius: BorderRadius.circular(6.0)),
+                        alignment: Alignment.center,
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.add_shopping_cart,
+                              color: Colors.white,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 2.0),
+                              child: Text(
+                                "Hold",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2.0),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 2.0),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(.6),
+                            borderRadius: BorderRadius.circular(6.0)),
+                        alignment: Alignment.center,
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.assignment_return,
+                              color: Colors.white,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 2.0),
+                              child: Text(
+                                "Return",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-          ),
+            Positioned(
+              child: Opacity(
+                opacity: (1 - shrinkOffset / expandedHeight),
+                child: Container(
+                  height: double.infinity,
+                  alignment: Alignment.topCenter,
+                  child: Column(
+                    children: <Widget>[
+                      Spacer(
+                        flex: 1,
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 6,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 3,
+                                  color: Theme.of(context)
+                                      .primaryColor
+                                      .withBlue(2),
+                                  child: Container(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          flex: 4,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.local_shipping,
+                                                size: 26,
+                                                color: Colors.white,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 4.0),
+                                                child: Text('Delivery',
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white,
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 9,
+                                          child: Center(
+                                            child: Text('5',
+                                                style: TextStyle(
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                )),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 6,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 3,
+                                  color: Theme.of(context)
+                                      .primaryColorLight
+                                      .withRed(12),
+                                  child: Container(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          flex: 4,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.monetization_on,
+                                                size: 26,
+                                                color: Colors.white,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 4.0),
+                                                child: Text('Payment',
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white,
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 9,
+                                          child: Center(
+                                            child: Text('5',
+                                                style: TextStyle(
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                )),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Spacer(
+                        flex: 1,
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 6,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 3,
+                                  color: Theme.of(context)
+                                      .primaryColorLight
+                                      .withGreen(12),
+                                  child: Container(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          flex: 4,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.monetization_on,
+                                                size: 26,
+                                                color: Colors.white,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 4.0),
+                                                child: Text('Hold',
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white,
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 9,
+                                          child: Center(
+                                            child: Text('5',
+                                                style: TextStyle(
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                )),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 6,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 3,
+                                  color: Theme.of(context)
+                                      .primaryColorDark
+                                      .withRed(12),
+                                  child: Container(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          flex: 4,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.monetization_on,
+                                                size: 26,
+                                                color: Colors.white,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 4.0),
+                                                child: Text('Return',
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white,
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 9,
+                                          child: Center(
+                                            child: Text('5',
+                                                style: TextStyle(
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                )),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Spacer(
+                        flex: 3,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 

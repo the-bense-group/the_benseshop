@@ -8,7 +8,9 @@ class _UILoginMobile extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/login_bg.jpg'), fit: BoxFit.cover)),
+                colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
+                image: AssetImage('assets/food_delivery.jpg'),
+                fit: BoxFit.cover)),
         padding: EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +22,7 @@ class _UILoginMobile extends StatelessWidget {
                   "Login",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 40,
+                      fontSize: 36,
                       fontWeight: FontWeight.bold),
                 )),
             SizedBox(
@@ -80,15 +82,15 @@ class _UILoginMobile extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   Container(
-                      padding: EdgeInsets.only(left: 6.0),
-                      child:  Text(
-                        "Register",
+                    padding: EdgeInsets.only(left: 6.0),
+                    child: Text("Register",
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.white,
+                            fontSize: 16)),
 
-                        style: TextStyle(decoration: TextDecoration.underline, color:Theme.of(context).primaryColorDark,fontSize: 16)
-                      ),
-                      
-                      // 
-                    ),
+                    //
+                  ),
                 ],
               ),
             ),
