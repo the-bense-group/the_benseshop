@@ -75,9 +75,56 @@ Widget _children(BuildContext context, int indx) {
                         ),
                       ),
                     ),
-                    Container(
-                        // color: Colors.white,
+                    FadeAnimation(
+                      1.2,
+                      Container(
+                        margin: EdgeInsets.only(top: 25.0),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 14.0, horizontal: 20.0),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).accentColor.withOpacity(.9),
+                          // borderRadius: BorderRadius.circular(8)
                         ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.add_shopping_cart, color: Colors.white),
+                            Text(
+                              'New Lead',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 200,
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream:
+                            Firestore.instance.collection('tbl_delivery').snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError)
+                            return new Text('Error: ${snapshot.error}');
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return new Text('Loading...');
+                            default:
+                              return new ListView(
+                                children: snapshot.data.documents
+                                    .map((DocumentSnapshot document) {
+                                  return new ListTile(
+                                    title: new Text(document['delv_man']),
+                                    subtitle: new Text(document['customer_name']),
+                                  );
+                                }).toList(),
+                              );
+                          }
+                        },
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -91,7 +138,116 @@ Widget _children(BuildContext context, int indx) {
       ),
     );
   } else if (indx == 1) {
-    return Text('Divery');
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: new AssetImage('assets/food_delivery.jpg'),
+              fit: BoxFit.cover)),
+      child: Column(
+        children: <Widget>[
+          FadeAnimation(
+              1.1,
+              ClipPath(
+                  clipper: CustomClipPath(),
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * .26,
+                    color: Theme.of(context).primaryColor.withOpacity(.7),
+                    child: Stack(
+                      fit: StackFit.passthrough,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 6.0, horizontal: 10.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.local_shipping,
+                                    color: Colors.white,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 4.0),
+                                    child: Text(
+                                      'Delivery',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .caption
+                                              .color),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  Text(
+                                    'Total Amount',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .caption
+                                            .color),
+                                  ),
+                                  Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8.0, vertical: 4.0),
+                                      decoration: BoxDecoration(
+                                          color: Theme.of(context).accentColor,
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                      margin: EdgeInsets.only(top: 6.0),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.attach_money,
+                                            color: Colors.white,
+                                            size: 18,
+                                          ),
+                                          Text(
+                                            '160.00',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .caption
+                                                    .color),
+                                          ),
+                                        ],
+                                      )),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Center(
+                          child: Container(
+                            padding: EdgeInsets.all(14.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 4,
+                                    color: Theme.of(context)
+                                        .accentColor
+                                        .withOpacity(.7)),
+                                shape: BoxShape.circle),
+                            child: Text(
+                              '10',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 40),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )))
+        ],
+      ),
+    );
   } else if (indx == 2) {
     return Text('Location');
   } else {

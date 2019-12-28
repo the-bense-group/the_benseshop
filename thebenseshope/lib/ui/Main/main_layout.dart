@@ -9,7 +9,7 @@ import 'package:thebenseshope/animations/route_animation.dart';
 import 'package:thebenseshope/ui/Search/search.dart';
 import 'package:loader_search_bar/loader_search_bar.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../animations/fade_animation.dart';
 
 part 'main_layout_mobile.dart';

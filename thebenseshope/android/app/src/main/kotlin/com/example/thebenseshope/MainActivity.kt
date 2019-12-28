@@ -1,4 +1,4 @@
-package com.example.thebenseshope
+package com.thebense.ecommerce
 
 import android.os.Bundle
 import io.flutter.app.FlutterActivity

@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
        debugShowCheckedModeBanner: false,
       title: 'The bense shope',
+     
       theme: ThemeData(
 
         primaryColor: Color(0xFFE91E63),
