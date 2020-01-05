@@ -6,7 +6,7 @@ class _UIMainMobile extends StatefulWidget {
 }
 
 var dateString = 'What date are you looking for?';
-Widget _children(BuildContext context, int indx) {
+Widget _children(BuildContext context, MainController _ctl, int indx) {
   if (indx == 0) {
     return Container(
       decoration: BoxDecoration(
@@ -19,19 +19,20 @@ Widget _children(BuildContext context, int indx) {
         slivers: <Widget>[
           SliverPersistentHeader(
             delegate: MySliverAppBar(
-                expandedHeight: MediaQuery.of(context).size.height * .36),
-            pinned: true,
+              ctl: _ctl,
+              expandedHeight: MediaQuery.of(context).size.height * .32,
+            ),
+            // pinned: true,
             floating: true,
 
             // floating: true,
           ),
           SliverFillRemaining(
-            child: FadeAnimation(
-              1.2,
-              Container(
-                padding: EdgeInsets.only(top: 64.0),
-                child: Column(
-                  children: <Widget>[
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  FadeAnimation(
+                    1.1,
                     GestureDetector(
                       onTap: () {
                         DatePicker.showDatePicker(context,
@@ -59,12 +60,12 @@ Widget _children(BuildContext context, int indx) {
                               "- " +
                               date.year.toString();
 
-                          (context as Element).markNeedsBuild();
+                          // (context as Element).markNeedsBuild();
                         }, currentTime: DateTime.now(), locale: LocaleType.en);
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white54,
+                          color: Colors.white.withOpacity(.9),
                           // borderRadius: BorderRadius.circular(100)
                         ),
                         padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -75,58 +76,317 @@ Widget _children(BuildContext context, int indx) {
                         ),
                       ),
                     ),
-                    FadeAnimation(
-                      1.2,
-                      Container(
-                        margin: EdgeInsets.only(top: 25.0),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 14.0, horizontal: 20.0),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).accentColor.withOpacity(.9),
-                          // borderRadius: BorderRadius.circular(8)
+                    beginTransaction: -15,
+                  ),
+                  Expanded(
+                    child: FadeAnimation(
+                      1.1,
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 12.0,
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(Icons.add_shopping_cart, color: Colors.white),
-                            Text(
-                              'New Lead',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                            ),
-                          ],
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(.9),
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(8))),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8.0, horizontal: 8.0),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: 1, color: Colors.grey))),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(Icons.history,
+                                        color: Colors.black54.withOpacity(.5)),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 4.0),
+                                      child: Text('Delivery History',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color:
+                                                Colors.black54.withOpacity(.5),
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 12,
+                                child: SingleChildScrollView(
+                                  child: Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 12.0, horizontal: 8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Flexible(
+                                                flex: 1,
+                                                child: Container(
+                                                  padding: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .accentColor,
+                                                      shape: BoxShape.circle),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                flex: 5,
+                                                fit: FlexFit.tight,
+                                                child: Text(
+                                                  'Delivered',
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                flex: 2,
+                                                fit: FlexFit.tight,
+                                                child: Text(
+                                                  '7',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                fit: FlexFit.tight,
+                                                flex: 4,
+                                                child: Text(
+                                                  '65.00',
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 12.0, horizontal: 8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Flexible(
+                                                flex: 1,
+                                                child: Container(
+                                                  padding: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .primaryColorLight
+                                                          .withRed(2),
+                                                      shape: BoxShape.circle),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                flex: 5,
+                                                fit: FlexFit.tight,
+                                                child: Text(
+                                                  'Payment',
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                flex: 2,
+                                                fit: FlexFit.tight,
+                                                child: Text(
+                                                  '7',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                fit: FlexFit.tight,
+                                                flex: 4,
+                                                child: Text(
+                                                  '65.00',
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 12.0, horizontal: 8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Flexible(
+                                                flex: 1,
+                                                child: Container(
+                                                  padding: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .primaryColorLight
+                                                          .withGreen(2),
+                                                      shape: BoxShape.circle),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                flex: 5,
+                                                fit: FlexFit.tight,
+                                                child: Text(
+                                                  'Holding',
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                flex: 2,
+                                                fit: FlexFit.tight,
+                                                child: Text(
+                                                  '7',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                fit: FlexFit.tight,
+                                                flex: 4,
+                                                child: Text(
+                                                  '65.00',
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 12.0, horizontal: 8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Flexible(
+                                                flex: 1,
+                                                child: Container(
+                                                  padding: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .primaryColorDark
+                                                          .withRed(2),
+                                                      shape: BoxShape.circle),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                flex: 5,
+                                                fit: FlexFit.tight,
+                                                child: Text(
+                                                  'Return',
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                flex: 2,
+                                                fit: FlexFit.tight,
+                                                child: Text(
+                                                  '7',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                fit: FlexFit.tight,
+                                                flex: 4,
+                                                child: Text(
+                                                  '65.00',
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      color: Colors.black54),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    // child: StreamBuilder<QuerySnapshot>(
+                                    //   stream: Firestore.instance
+                                    //       .collection('tbl_delivery')
+                                    //       .snapshots(),
+                                    //   builder: (BuildContext context,
+                                    //       AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    //     if (snapshot.hasError)
+                                    //       return new Text(
+                                    //           'Error: ${snapshot.error}');
+                                    //     switch (snapshot.connectionState) {
+                                    //       case ConnectionState.waiting:
+                                    //         return new Text('Loading...');
+                                    //       default:
+                                    //         return new ListView(
+                                    //           children: snapshot.data.documents
+                                    //               .map((DocumentSnapshot
+                                    //                   document) {
+                                    //             return new ListTile(
+                                    //               title: new Text(
+                                    //                   document['delv_man']),
+                                    //               subtitle: new Text(
+                                    //                   document['customer_name']),
+                                    //             );
+                                    //           }).toList(),
+                                    //         );
+                                    //     }
+                                    //   },
+                                    // ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                      ),
+                      beginTransaction: -15,
+                    ),
+                  ),
+                  RouteAnimation(
+                    duration: .9,
+                    isClearCache: false,
+                    form: CtlOrder(),
+                    action: Container(
+                      height: 56,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).accentColor.withOpacity(.9),
+                        // borderRadius: BorderRadius.circular(8)
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.add_shopping_cart, color: Colors.white),
+                          Text(
+                            'New Lead',
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        ],
                       ),
                     ),
-                    Container(
-                      height: 200,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream:
-                            Firestore.instance.collection('tbl_delivery').snapshots(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasError)
-                            return new Text('Error: ${snapshot.error}');
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.waiting:
-                              return new Text('Loading...');
-                            default:
-                              return new ListView(
-                                children: snapshot.data.documents
-                                    .map((DocumentSnapshot document) {
-                                  return new ListTile(
-                                    title: new Text(document['delv_man']),
-                                    subtitle: new Text(document['customer_name']),
-                                  );
-                                }).toList(),
-                              );
-                          }
-                        },
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -256,198 +516,234 @@ Widget _children(BuildContext context, int indx) {
 }
 
 class __UIMainMobileState extends State<_UIMainMobile> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int currentPage = 0;
+  Widget _createHeader() {
+    return DrawerHeader(
+        margin: EdgeInsets.zero,
+        padding: EdgeInsets.zero,
+        decoration: BoxDecoration(color: Theme.of(context).primaryColorDark),
+        // decoration: BoxDecoration(
+        //     image: DecorationImage(
+        //         fit: BoxFit.fill,
+        //         image: AssetImage('path/to/header_background.png'))
+        //         ),1
+        child: Stack(fit: StackFit.passthrough, children: <Widget>[
+          Positioned.fill(
+              top: 12.0,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                            width: 3, color: Theme.of(context).accentColor)),
+                    child: CircleAvatar(
+                        radius: 42,
+                        backgroundColor: Colors.white.withOpacity(.8),
+                        child: Text('TBense')),
+                  ),
+                  Text("The bense online shop",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w500)),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4.0),
+                    child: Text('thebenseshop@gmail.com',
+                        style: TextStyle(
+                          color: Colors.white,
+                        )),
+                  )
+                ],
+              )),
+        ]));
+  }
+
+  List<Widget> _lstItemDrawer = [
+    _createDrawerItem(
+        icon: Icons.add_shopping_cart, form: CtlOrder(), text: "Order"),
+    _createDrawerItem(
+        icon: Icons.library_add, form: CtlCustomer(), text: "New Item"),
+    _createDrawerItem(
+        icon: Icons.people, form: CtlCustomer(), text: "Customer"),
+    _createDrawerItem(
+        icon: Icons.add_call, form: CtlCustomer(), text: "0972005060"),
+    _createDrawerItem(
+        icon: Icons.info_outline, form: CtlCustomer(), text: "About Me"),
+  ];
+
+  static Widget _createDrawerItem({IconData icon, String text, Widget form}) {
+    return RouteAnimation(
+      form: form,
+      duration: .9,
+      action: Container(
+        child: ListTile(
+          title: Row(
+            children: <Widget>[
+              Icon(
+                icon,
+                color: Color(0xFFE91E63),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Text(
+                  text,
+                  style: TextStyle(color: Colors.black45),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
+    final MainController _ctl = Provider.of(context);
     return Scaffold(
-      appBar: SearchBar(
-        // iconified: false,
-        attrs: SearchBarAttrs(
-            textStyle: TextStyle(
-              fontSize: 14,
-            ),
-            textBoxOutlineRadius: 50,
-            primaryDetailColor: Colors.white,
-            disabledDetailColor: Colors.white,
-            statusBarColor: Colors.white,
-            secondaryDetailColor: Colors.white,
-            // searchInputMargin: EdgeInsets.symmetric(vertical: 4),
-            searchBarColor: Theme.of(context).primaryColor,
-            textBoxOutlineColor: Colors.transparent),
+        key: _scaffoldKey,
+        appBar: SearchBar(
+          // iconified: false,
+          attrs: SearchBarAttrs(
+              textStyle: TextStyle(
+                fontSize: 14,
+              ),
+              textBoxOutlineRadius: 50,
+              primaryDetailColor: Colors.white,
+              disabledDetailColor: Colors.white,
+              statusBarColor: Colors.white,
+              secondaryDetailColor: Colors.white,
+              // searchInputMargin: EdgeInsets.symmetric(vertical: 4),
+              searchBarColor: Theme.of(context).primaryColor,
+              textBoxOutlineColor: Colors.transparent),
 
-        // searchItem: SearchItem.menu(
-        //   builder: (_) => PopupMenuItem(
-        //         child: Text("Search  🔍"),
-        //         value: "search",
-        //       ),
-        //   gravity: SearchItemGravity.end,
-        // ),
-        defaultBar: AppBar(
-          elevation: 0,
-          leading: _leadingButton,
-          title: Padding(
-            padding: EdgeInsets.symmetric(vertical: 6.0),
-            child: Container(
-
-                // decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),color: Theme.of(context).primaryColorDark.withOpacity(.4),),
-                alignment: Alignment.center,
-                child: Text(
-                  'The bense shop'.toUpperCase(),
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                )),
-          ),
-          actions: <Widget>[
-            Stack(
-              fit: StackFit.passthrough,
-              children: <Widget>[
-                Container(
-                  width: 38,
-                  child: Icon(
-                    Icons.notifications_none,
-                    color: Theme.of(context).textTheme.caption.color,
+          // searchItem: SearchItem.menu(
+          //   builder: (_) => PopupMenuItem(
+          //         child: Text("Search  🔍"),
+          //         value: "search",
+          //       ),
+          //   gravity: SearchItemGravity.end,
+          // ),
+          defaultBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColorDark,
+            elevation: 0,
+            leading: InkWell(
+                borderRadius: BorderRadius.circular(16.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    child: Stack(
+                      fit: StackFit.passthrough,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(6.0),
+                          child: Icon(Icons.person_pin),
+                          decoration: BoxDecoration(shape: BoxShape.circle),
+                        ),
+                        Positioned.fill(
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(100),
+                              onTap: () {
+                                _scaffoldKey.currentState.openDrawer();
+                              },
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Positioned(
-                  top: 6.0,
-                  left: 4.0,
-                  child: Container(
-                      padding: EdgeInsets.all(4.0),
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).accentColor,
-                          shape: BoxShape.circle),
-                      child: Text(
-                        '2',
-                        style: TextStyle(fontSize: 10),
-                      )),
-                )
-              ],
+                )),
+            title: Padding(
+              padding: EdgeInsets.symmetric(vertical: 6.0),
+              child: Container(
+
+                  // decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),color: Theme.of(context).primaryColorDark.withOpacity(.4),),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'The bense shop'.toUpperCase(),
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  )),
             ),
+            actions: <Widget>[
+              Stack(
+                fit: StackFit.passthrough,
+                children: <Widget>[
+                  Container(
+                    width: 38,
+                    child: Icon(
+                      Icons.notifications_none,
+                      color: Theme.of(context).textTheme.caption.color,
+                    ),
+                  ),
+                  Positioned(
+                    top: 6.0,
+                    left: 4.0,
+                    child: Container(
+                        padding: EdgeInsets.all(4.0),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).accentColor,
+                            shape: BoxShape.circle),
+                        child: Text(
+                          '2',
+                          style: TextStyle(fontSize: 10),
+                        )),
+                  )
+                ],
+              ),
+            ],
+          ),
+          searchHint: 'What are you looking for?',
+
+          loader: QuerySetLoader<Person>(
+            querySetCall: Person.filterPersonsByQuery,
+            itemBuilder: Person.buildPersonRow,
+            loadOnEachChange: true,
+            animateChanges: true,
+          ),
+        ),
+        body: _children(context, _ctl, currentPage),
+        bottomNavigationBar: CircleBottomNavigation(
+          initialSelection: currentPage,
+          tabs: [
+            TabData(icon: Icons.home, title: 'Home'),
+            TabData(icon: Icons.shopping_cart, title: "Delivery"),
+            TabData(icon: Icons.search, title: "Location"),
+            TabData(icon: Icons.chat, title: "Chat"),
           ],
+          onTabChangedListener: (index) => setState(() => currentPage = index),
         ),
-        searchHint: 'What are you looking for?',
-
-        loader: QuerySetLoader<Person>(
-          querySetCall: Person.filterPersonsByQuery,
-          itemBuilder: Person.buildPersonRow,
-          loadOnEachChange: true,
-          animateChanges: true,
-        ),
-      ),
-      body: _children(context, currentPage),
-      bottomNavigationBar: CircleBottomNavigation(
-        initialSelection: currentPage,
-        tabs: [
-          TabData(icon: Icons.home, title: 'Home'),
-          TabData(icon: Icons.shopping_cart, title: "Delivery"),
-          TabData(icon: Icons.search, title: "Location"),
-          TabData(icon: Icons.chat, title: "Chat"),
-        ],
-        onTabChangedListener: (index) => setState(() => currentPage = index),
-      ),
-
-      // return Scaffold(
-      //   appBar: AppBar(
-      //     brightness: Brightness.light,
-      //     leading: Padding(
-      //       padding: const EdgeInsets.all(8.0),
-      //       child: CircleAvatar(
-      //         child: Stack(
-      //           fit: StackFit.passthrough,
-      //           children: <Widget>[
-      //             Container(
-      //               padding: EdgeInsets.all(6.0),
-      //               child: Icon(Icons.person_pin),
-      //               decoration: BoxDecoration(shape: BoxShape.circle),
-      //             ),
-      //             Positioned.fill(
-      //               child: Material(
-      //                 color: Colors.transparent,
-      //                 child: InkWell(
-      //                   borderRadius: BorderRadius.circular(100),
-      //                   onTap: () {},
-      //                 ),
-      //               ),
-      //             )
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //     actions: <Widget>[
-      //       Spacer(
-      //         flex: 3,
-      //       ),
-      //       Expanded(
-      //         flex: 12,
-      //         child: Padding(
-      //           padding: EdgeInsets.symmetric(vertical: 6.0),
-      //           child: Container(
-
-      //               // decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),color: Theme.of(context).primaryColorDark.withOpacity(.4),),
-      //               alignment: Alignment.center,
-      //               child: Text(
-      //                 'The bense shop'.toUpperCase(),
-      //                 style: TextStyle(fontSize: 16),
-      //               )),
-      //         ),
-
-      //       ),
-      //       Stack(
-      //         fit: StackFit.passthrough,
-      //         children: <Widget>[
-      //           Container(
-      //             width: 38,
-      //             child: Icon(
-      //               Icons.notifications_none,
-      //               color: Theme.of(context).textTheme.caption.color,
-      //             ),
-      //           ),
-      //           Positioned(
-      //             top: 6.0,
-      //             left: 4.0,
-      //             child: Container(
-      //                 padding: EdgeInsets.all(4.0),
-      //                 decoration: BoxDecoration(
-      //                     color: Theme.of(context).accentColor,
-      //                     shape: BoxShape.circle),
-      //                 child: Text(
-      //                   '2',
-      //                   style: TextStyle(fontSize: 10),
-      //                 )),
-      //           )
-      //         ],
-      //       ),
-      //       Padding(
-      //         padding: const EdgeInsets.only(right: 6.0),
-      //         child: CircleAvatar(
-      //           child: Container(
-      //             padding: EdgeInsets.all(6.0),
-      //             child:RouteAnimation(
-      //               action:  Icon(Icons.search),
-      //               form: UISearch(),
-      //               duration: 1,
-      //             ),
-      //             decoration: BoxDecoration(shape: BoxShape.circle),
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      //   body: Container(
-      //     child: Text("Main"),
-      //   ),
-      //   bottomNavigationBar: CircleBottomNavigation(
-      //     initialSelection: currentPage,
-      //     tabs: [
-      //       TabData(icon: Icons.home, title: 'Home'),
-      //       TabData(icon: Icons.shopping_cart, title: "Delivery"),
-      //       TabData(icon: Icons.search, title: "Location"),
-      //       TabData(icon: Icons.chat, title: "Chat"),
-      //     ],
-      //     onTabChangedListener: (index) => setState(() => currentPage = index),
-      //   ),
-      // );
-    );
+        drawer: Drawer(
+          child: Column(
+            children: <Widget>[
+              _createHeader(),
+              Expanded(
+                child: ListView.builder(
+                    itemCount: _lstItemDrawer.length,
+                    itemBuilder: (BuildContext context, int idx) {
+                      return Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Colors.grey.withOpacity(.8),
+                                      width: .8))),
+                          child: _lstItemDrawer[idx]);
+                    }),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 6.0),
+                alignment: Alignment.centerLeft,
+                color: Theme.of(context).primaryColor,
+                child: Text('version 1.0.0',
+                    style: TextStyle(color: Colors.white)),
+              )
+            ],
+          ),
+        ));
   }
 }
 
@@ -463,33 +759,6 @@ List _buildList(int count) {
 
   return listItems;
 }
-
-Widget get _leadingButton => InkWell(
-    borderRadius: BorderRadius.circular(16.0),
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: CircleAvatar(
-        child: Stack(
-          fit: StackFit.passthrough,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(6.0),
-              child: Icon(Icons.person_pin),
-              decoration: BoxDecoration(shape: BoxShape.circle),
-            ),
-            Positioned.fill(
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(100),
-                  onTap: () {},
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    ));
 
 Drawer get _drawer => Drawer();
 
@@ -692,9 +961,10 @@ final transparentImage = Uint8List.fromList(<int>[
 ]);
 
 class MySliverAppBar extends SliverPersistentHeaderDelegate {
+  final MainController ctl;
   final double expandedHeight;
 
-  MySliverAppBar({@required this.expandedHeight});
+  MySliverAppBar({@required this.expandedHeight, @required this.ctl});
 
   @override
   Widget build(
@@ -710,146 +980,147 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
             //   "assets/food_delivery.jpg",
             //   fit: BoxFit.fill,
             // ),
+
+            // Center(
+            //   child: Opacity(
+            //     opacity: shrinkOffset / expandedHeight,
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       crossAxisAlignment: CrossAxisAlignment.end,
+            //       children: <Widget>[
+            //         Padding(
+            //           padding: const EdgeInsets.symmetric(vertical: 2.0),
+            //           child: Container(
+            //             padding: EdgeInsets.symmetric(horizontal: 4.0),
+            //             decoration: BoxDecoration(
+            //                 color: Theme.of(context)
+            //                     .primaryColorDark
+            //                     .withOpacity(.6),
+            //                 borderRadius: BorderRadius.circular(6.0)),
+            //             alignment: Alignment.center,
+            //             child: Row(
+            //               children: <Widget>[
+            //                 Icon(
+            //                   Icons.local_shipping,
+            //                   color: Colors.white,
+            //                 ),
+            //                 Padding(
+            //                   padding: const EdgeInsets.only(left: 2.0),
+            //                   child: Text(
+            //                     "Deliver",
+            //                     style: TextStyle(
+            //                       color: Colors.white,
+            //                       fontWeight: FontWeight.w700,
+            //                       fontSize: 16,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //         Padding(
+            //           padding: const EdgeInsets.symmetric(vertical: 2.0),
+            //           child: Container(
+            //             padding: EdgeInsets.symmetric(horizontal: 4.0),
+            //             decoration: BoxDecoration(
+            //                 color: Theme.of(context)
+            //                     .primaryColorDark
+            //                     .withOpacity(.6),
+            //                 borderRadius: BorderRadius.circular(6.0)),
+            //             alignment: Alignment.center,
+            //             child: Row(
+            //               children: <Widget>[
+            //                 Icon(
+            //                   Icons.monetization_on,
+            //                   color: Colors.white,
+            //                 ),
+            //                 Padding(
+            //                   padding: const EdgeInsets.only(left: 2.0),
+            //                   child: Text(
+            //                     "Payment",
+            //                     style: TextStyle(
+            //                       color: Colors.white,
+            //                       fontWeight: FontWeight.w700,
+            //                       fontSize: 16,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //         Padding(
+            //           padding: const EdgeInsets.symmetric(vertical: 2.0),
+            //           child: Container(
+            //             padding: EdgeInsets.symmetric(horizontal: 4.0),
+            //             decoration: BoxDecoration(
+            //                 color: Theme.of(context)
+            //                     .primaryColorDark
+            //                     .withOpacity(.6),
+            //                 borderRadius: BorderRadius.circular(6.0)),
+            //             alignment: Alignment.center,
+            //             child: Row(
+            //               children: <Widget>[
+            //                 Icon(
+            //                   Icons.add_shopping_cart,
+            //                   color: Colors.white,
+            //                 ),
+            //                 Padding(
+            //                   padding: const EdgeInsets.only(left: 2.0),
+            //                   child: Text(
+            //                     "Hold",
+            //                     style: TextStyle(
+            //                       color: Colors.white,
+            //                       fontWeight: FontWeight.w700,
+            //                       fontSize: 16,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //         Padding(
+            //           padding: const EdgeInsets.symmetric(vertical: 2.0),
+            //           child: Container(
+            //             padding: EdgeInsets.symmetric(horizontal: 2.0),
+            //             decoration: BoxDecoration(
+            //                 color: Theme.of(context)
+            //                     .primaryColorDark
+            //                     .withOpacity(.6),
+            //                 borderRadius: BorderRadius.circular(6.0)),
+            //             alignment: Alignment.center,
+            //             child: Row(
+            //               children: <Widget>[
+            //                 Icon(
+            //                   Icons.assignment_return,
+            //                   color: Colors.white,
+            //                 ),
+            //                 Padding(
+            //                   padding: const EdgeInsets.only(left: 2.0),
+            //                   child: Text(
+            //                     "Return",
+            //                     style: TextStyle(
+            //                       color: Colors.white,
+            //                       fontWeight: FontWeight.w700,
+            //                       fontSize: 16,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             ClipPath(
               child: Container(
                 color: Theme.of(context).primaryColor.withOpacity(.5),
               ),
               clipper: CustomClipPath(),
-            ),
-            Center(
-              child: Opacity(
-                opacity: shrinkOffset / expandedHeight,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 4.0),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .primaryColorDark
-                                .withOpacity(.6),
-                            borderRadius: BorderRadius.circular(6.0)),
-                        alignment: Alignment.center,
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.local_shipping,
-                              color: Colors.white,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 2.0),
-                              child: Text(
-                                "Deliver",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 4.0),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .primaryColorDark
-                                .withOpacity(.6),
-                            borderRadius: BorderRadius.circular(6.0)),
-                        alignment: Alignment.center,
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.monetization_on,
-                              color: Colors.white,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 2.0),
-                              child: Text(
-                                "Payment",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 4.0),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .primaryColorDark
-                                .withOpacity(.6),
-                            borderRadius: BorderRadius.circular(6.0)),
-                        alignment: Alignment.center,
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.add_shopping_cart,
-                              color: Colors.white,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 2.0),
-                              child: Text(
-                                "Hold",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 2.0),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .primaryColorDark
-                                .withOpacity(.6),
-                            borderRadius: BorderRadius.circular(6.0)),
-                        alignment: Alignment.center,
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.assignment_return,
-                              color: Colors.white,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 2.0),
-                              child: Text(
-                                "Return",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ),
             Positioned(
               child: Opacity(
@@ -859,8 +1130,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                   alignment: Alignment.topCenter,
                   child: Column(
                     children: <Widget>[
-                      Spacer(
-                        flex: 1,
+                      SizedBox(
+                        height: 4.0,
                       ),
                       Expanded(
                         flex: 4,
@@ -989,8 +1260,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                           ],
                         ),
                       ),
-                      Spacer(
-                        flex: 1,
+                      SizedBox(
+                        height: 4.0,
                       ),
                       Expanded(
                         flex: 4,
@@ -1120,7 +1391,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         ),
                       ),
                       Spacer(
-                        flex: 3,
+                        flex: 2,
                       )
                     ],
                   ),
@@ -1130,6 +1401,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
           ],
         ),
       ),
+      beginTransaction: 15,
     );
   }
 

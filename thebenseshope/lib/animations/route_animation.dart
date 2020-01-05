@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-
 class RouteAnimation extends StatefulWidget {
   Widget form;
   Widget action;
   double duration;
-
-  RouteAnimation({
-    this.duration,
-    this.action,
-    this.form,
-  });
+  double actionRadius;
+  bool isPopContext;
+  bool isClearCache;
+  RouteAnimation(
+      {this.duration,
+      this.action,
+      this.form,
+      this.actionRadius = 0,
+      this.isPopContext = false,
+      this.isClearCache = true});
 
   @override
   _RouteAnimationState createState() => _RouteAnimationState();
@@ -76,15 +79,26 @@ class _RouteAnimationState extends State<RouteAnimation>
         AnimationController(vsync: this, duration: Duration(milliseconds: 64));
 
     _scale2Animation =
-        Tween<double>(begin: 1.0, end: 252.0).animate(_scale2Controller)
+        Tween<double>(begin: 1.0, end: 1.0).animate(_scale2Controller)
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.rightToLeftWithFade,
-                      child: widget.form),
-                  (Route<dynamic> route) => false);
+              if (widget.isPopContext) {
+                Navigator.of(context).pop();
+              }
+              if (widget.isClearCache) {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.rightToLeftWithFade,
+                        child: widget.form),
+                    (Route<dynamic> route) => false);
+              } else {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.rightToLeftWithFade,
+                        child: widget.form));
+              }
             }
           });
   }
@@ -93,51 +107,40 @@ class _RouteAnimationState extends State<RouteAnimation>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _scaleController,
-      builder: (context, child) => Transform.scale(
-          scale: _scaleAnimation.value,
-          child: Center(
-            child: AnimatedBuilder(
-                animation: _widthController,
-                // builder:(context, child) => Container(child: GestureDetector(behavior: HitTestBehavior.translucent,onTap: (){ _scaleController.forward();}, child: widget.action),) ,
-                builder: (context, child) => Container(
-                      width: _widthAnimation.value,
-                      height: 64,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Theme.of(context)
-                              .primaryColorDark
-                              .withOpacity(.4)),
-                      child: InkWell(
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        onTap: () {
-                          _scaleController.forward();
-                        },
-                        child: Stack(children: <Widget>[
-                          AnimatedBuilder(
-                            animation: _positionController,
-                            builder: (context, child) => Positioned(
-                              child: AnimatedBuilder(
-                                animation: _scale2Controller,
-                                builder: (context, child) => Transform.scale(
-                                    scale: _scale2Animation.value,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color:
-                                              Theme.of(context).primaryColor),
-                                      child: hideIcon == false
-                                          ? widget.action
-                                          : Container(),
-                                    )),
-                              ),
-                            ),
-                          ),
-                        ]),
+      builder: (context, child) => Center(
+        child: AnimatedBuilder(
+            animation: _widthController,
+            // builder:(context, child) => Container(child: GestureDetector(behavior: HitTestBehavior.translucent,onTap: (){ _scaleController.forward();}, child: widget.action),) ,
+            builder: (context, child) => Container(
+                  alignment: Alignment.center,
+                  child: Stack(children: <Widget>[
+                    AnimatedBuilder(
+                      animation: _positionController,
+                      builder: (context, child) => Positioned(
+                          child: AnimatedBuilder(
+                        animation: _scale2Controller,
+                        builder: (context, child) => Transform.scale(
+                          scale: _scale2Animation.value,
+                          child: widget.action,
+                        ),
+                      )),
+                    ),
+                    Positioned.fill(
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius:
+                              BorderRadius.circular(widget.actionRadius),
+                          highlightColor: Colors.transparent,
+                          onTap: () {
+                            _scaleController.forward();
+                          },
+                        ),
                       ),
-                    )),
-          )),
+                    )
+                  ]),
+                )),
+      ),
     );
   }
 }
