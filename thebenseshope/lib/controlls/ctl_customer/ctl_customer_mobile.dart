@@ -7,6 +7,7 @@ class _CtlCustomerMobile extends StatefulWidget {
 
 class __CtlCustomerMobileState extends State<_CtlCustomerMobile> {
   final _Key = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     var _ctl = Provider.of<CustomerController>(context);
@@ -186,7 +187,168 @@ class __CtlCustomerMobileState extends State<_CtlCustomerMobile> {
                                     hintText: 'Note')),
                           ),
                         ),
-                        Expanded(child: Container()),
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12.0,
+                          ),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      colorFilter: ColorFilter.mode(
+                                          Theme.of(context).primaryColor,
+                                          BlendMode.softLight),
+                                      image: AssetImage(
+                                        'assets/blank_photo.png',
+                                      ))),
+                              child: Stack(
+                                fit: StackFit.passthrough,
+                                children: <Widget>[
+                                  _ctl.image != null
+                                      ? Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            child: Image.asset(
+                                              _ctl.image.path,
+                                              alignment: Alignment.center,
+                                              fit: BoxFit.cover,
+                                              width: double.infinity,
+                                            ),
+                                          ),
+                                        )
+                                      : Container(),
+                                  Positioned.fill(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          top: 8.0, right: 8.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Stack(
+                                            fit: StackFit.passthrough,
+                                            children: <Widget>[
+                                              Image.asset(
+                                                'assets/gallery.png',
+                                                height: 64,
+                                              ),
+                                              Positioned.fill(
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  child: InkWell(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            100),
+                                                    onTap: () {
+                                                      _ctl.chooseFile();
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          Stack(
+                                            fit: StackFit.passthrough,
+                                            children: <Widget>[
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    border: Border.all(
+                                                      width: 2,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                    ),
+                                                    shape: BoxShape.circle),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      13.0),
+                                                  child: Image.asset(
+                                                      'assets/camera1.png',
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                      height: 32),
+                                                ),
+                                              ),
+                                              Positioned.fill(
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  child: InkWell(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            100),
+                                                    onTap: () {
+                                                      _ctl.chooseCamera();
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          _ctl.image != null
+                                              ? Stack(
+                                                  fit: StackFit.passthrough,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          border: Border.all(
+                                                            width: 2,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .accentColor,
+                                                          ),
+                                                          shape:
+                                                              BoxShape.circle),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(13.0),
+                                                        child: Icon(
+                                                          Icons.clear,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .accentColor,
+                                                          size: 32,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Positioned.fill(
+                                                      child: Material(
+                                                        color:
+                                                            Colors.transparent,
+                                                        child: InkWell(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      100),
+                                                          onTap: () {
+                                                            _ctl.clearImage();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              : Container(),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        )),
                         //       RaisedButton(
                         //   onPressed: () async {
                         //     LocationResult result = await showLocationPicker(
@@ -201,6 +363,7 @@ class __CtlCustomerMobileState extends State<_CtlCustomerMobile> {
                         //   child: Text('Pick location'),
                         // ),
                         // Text(_pickedLocation.toString()),
+
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20),
                           child: Stack(

@@ -33,7 +33,7 @@ class _UIMainState extends State<UIMain> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: locator<MainController>(),
+          value: MainController(),
         )
       ],
       child: _UIMainMobile(),

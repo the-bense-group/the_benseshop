@@ -1,72 +1,58 @@
 part of 'search.dart';
 
-
 class _UISearchMobile extends StatelessWidget {
   const _UISearchMobile({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SearchBar(
-
-        
-        attrs: SearchBarAttrs(
-        
-            textStyle: TextStyle(fontSize: 14,),
+        appBar: SearchBar(
+          attrs: SearchBarAttrs(
+            textStyle: TextStyle(
+              fontSize: 14,
+            ),
             textBoxOutlineRadius: 50,
-
-          searchInputMargin: EdgeInsets.all(0),
+            searchInputMargin: EdgeInsets.all(0),
             searchBarColor: Theme.of(context).primaryColor,
-),
-
-       
-        // searchItem: SearchItem.menu(
-        //   builder: (_) => PopupMenuItem(
-        //         child: Text("Search  🔍"),
-        //         value: "search",
-        //       ),
-        //   gravity: SearchItemGravity.end,
-        // ),
-        defaultBar: _appBar,
-        searchHint: 'Search People',
-        
-        loader: QuerySetLoader<Person>(
-          
-          querySetCall: Person.filterPersonsByQuery,
-          itemBuilder: Person.buildPersonRow,
-          loadOnEachChange: true,
-          animateChanges: true,
+          ),
+          defaultBar: _appBar,
+          searchHint: 'Search People',
+          loader: QuerySetLoader<Person>(
+            querySetCall: Person.filterPersonsByQuery,
+            itemBuilder: Person.buildPersonRow,
+            loadOnEachChange: true,
+            animateChanges: true,
+          ),
         ),
-      ),
-      body:Container()
+        body: Container()
 
-      //  return Scaffold(
-      //   appBar: AppBar(
-      //     brightness: Brightness.light,
-      //     leading: Padding(
-      //       padding: const EdgeInsets.all(8.0),
-      //       child: CircleAvatar(
-      //         child: Container(
-      //           padding: EdgeInsets.all(6.0),
-      //            child:RouteAnimation(
-      //               action:  Icon(Icons.arrow_back),
-      //               form: UIMain(),
-      //               duration: 1.2,
-      //             ),
-      //           decoration: BoxDecoration(shape: BoxShape.circle),
-      //         ),
-      //       ),
-      //     ),
-      //     actions: <Widget>[
+        //  return Scaffold(
+        //   appBar: AppBar(
+        //     brightness: Brightness.light,
+        //     leading: Padding(
+        //       padding: const EdgeInsets.all(8.0),
+        //       child: CircleAvatar(
+        //         child: Container(
+        //           padding: EdgeInsets.all(6.0),
+        //            child:RouteAnimation(
+        //               action:  Icon(Icons.arrow_back),
+        //               form: UIMain(),
+        //               duration: 1.2,
+        //             ),
+        //           decoration: BoxDecoration(shape: BoxShape.circle),
+        //         ),
+        //       ),
+        //     ),
+        //     actions: <Widget>[
 
-      //     ],
-      //   ),
-      //   body: Container(
-      //     child: Text("Main"),
-      //   ),
+        //     ],
+        //   ),
+        //   body: Container(
+        //     child: Text("Main"),
+        //   ),
 
-      // );
-    );
+        // );
+        );
   }
 }
 

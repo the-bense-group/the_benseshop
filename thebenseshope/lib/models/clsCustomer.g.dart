@@ -16,6 +16,7 @@ ClsCustomer _$ClsCustomerFromJson(Map<String, dynamic> json) {
     geoPoint: json['geoPoint'] == null
         ? null
         : ClsGeoPoint.fromJson(json['geoPoint'] as Map<String, dynamic>),
+    imageSrc: json['imageSrc'] as String,
     note: json['note'] as String,
   );
 }
@@ -29,4 +30,5 @@ Map<String, dynamic> _$ClsCustomerToJson(ClsCustomer instance) =>
       'messagger': instance.messagger,
       'geoPoint': instance.geoPoint,
       'note': instance.note,
+      'imageSrc': instance.imageSrc,
     };

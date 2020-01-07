@@ -5,17 +5,17 @@ part 'clsOrderTrans.g.dart';
 
 @JsonSerializable()
 class ClsOrderTrans {
-  int brandId;
-  int orderId;
+  String brandId;
+  String orderId;
   ClsCustomer customerInfo;
   ClsItemOrder itemOrderInfo;
   String orderDate;
   String beforeDepartureDate;
   String afterDepartureDate;
   int orderStatus;
-  int deliverId;
-  int attachmentId;
-  dynamic geoPoint;
+  String deliverId;
+  String attachmentId;
+  dynamic geoPoString;
   String deliverMan;
   String note;
   ClsOrderTrans(
@@ -29,7 +29,7 @@ class ClsOrderTrans {
       this.orderStatus,
       this.deliverId,
       this.attachmentId,
-      this.geoPoint,
+      this.geoPoString,
       this.deliverMan,
       this.note});
   factory ClsOrderTrans.fromJson(Map<String, dynamic> json) =>

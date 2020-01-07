@@ -10,6 +10,9 @@ class __CtlOrderMobileState extends State<_CtlOrderMobile> {
 
   @override
   Widget build(BuildContext context) {
+    var _ctl = Provider.of<OrderController>(context);
+
+    _ctl.context = context;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
@@ -60,24 +63,43 @@ class __CtlOrderMobileState extends State<_CtlOrderMobile> {
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Column(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6.0),
-                    child: Material(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          side: BorderSide(color: Colors.black45, width: 1)),
-                      child: TextField(
-                          style: TextStyle(color: Colors.black54),
-                          controller: TextEditingController(text: 'Alex'),
-                          decoration: InputDecoration(
-                              icon: Container(
-                                padding: const EdgeInsets.only(left: 6.0),
-                                child: Icon(Icons.people),
-                              ),
-                              contentPadding: EdgeInsets.only(right: 6.0),
-                              border: InputBorder.none,
-                              hintText: 'Customer name')),
-                    ),
+                  Selector<OrderController, String>(
+                    builder: (context, data, child) {
+                      print(_ctl.objCustomer.customerName);
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6.0),
+                        child: Material(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                              side:
+                                  BorderSide(color: Colors.black45, width: 1)),
+                          child: TextFormField(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    isDismissible: false,
+                                    context: context,
+                                    isScrollControlled: true,
+                                    builder: (BuildContext context) {
+                                      return CtlSearchCustomerMobile(_ctl);
+                                    });
+                              },
+                              readOnly: true,
+                              style: TextStyle(color: Colors.black54),
+                              controller: TextEditingController(
+                                  text: _ctl.objCustomer.customerName),
+                              decoration: InputDecoration(
+                                  icon: Container(
+                                    padding: const EdgeInsets.only(left: 6.0),
+                                    child: Icon(Icons.people),
+                                  ),
+                                  contentPadding: EdgeInsets.only(right: 6.0),
+                                  border: InputBorder.none,
+                                  hintText: 'Customer name')),
+                        ),
+                      );
+                    },
+                    selector: (context, value) =>
+                        value.objCustomer.customerName,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),

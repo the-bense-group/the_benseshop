@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 class RouteAnimation extends StatefulWidget {
+  Function onTap;
+  bool isUseTap;
   Widget form;
   Widget action;
   double duration;
@@ -9,11 +11,13 @@ class RouteAnimation extends StatefulWidget {
   bool isPopContext;
   bool isClearCache;
   RouteAnimation(
-      {this.duration,
+      {this.onTap,
+      this.duration,
       this.action,
       this.form,
       this.actionRadius = 0,
       this.isPopContext = false,
+      this.isUseTap = false,
       this.isClearCache = true});
 
   @override
@@ -133,6 +137,9 @@ class _RouteAnimationState extends State<RouteAnimation>
                               BorderRadius.circular(widget.actionRadius),
                           highlightColor: Colors.transparent,
                           onTap: () {
+                            if (widget.isUseTap) {
+                              widget.onTap();
+                            }
                             _scaleController.forward();
                           },
                         ),

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_map_location_picker/google_map_location_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:thebenseshope/animations/route_animation.dart';
 import 'package:thebenseshope/controller/CustomerController.dart';
@@ -17,7 +20,7 @@ class CtlCustomer extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: locator<CustomerController>(),
+          value: CustomerController(),
         ),
         // Provider<ClsCustomer>(create: (_) => ClsCustomer()),
       ],

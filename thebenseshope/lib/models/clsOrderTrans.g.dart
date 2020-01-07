@@ -8,8 +8,8 @@ part of 'clsOrderTrans.dart';
 
 ClsOrderTrans _$ClsOrderTransFromJson(Map<String, dynamic> json) {
   return ClsOrderTrans(
-    brandId: json['brandId'] as int,
-    orderId: json['orderId'] as int,
+    brandId: json['brandId'] as String,
+    orderId: json['orderId'] as String,
     customerInfo: json['customerInfo'] == null
         ? null
         : ClsCustomer.fromJson(json['customerInfo'] as Map<String, dynamic>),
@@ -20,9 +20,9 @@ ClsOrderTrans _$ClsOrderTransFromJson(Map<String, dynamic> json) {
     beforeDepartureDate: json['beforeDepartureDate'] as String,
     afterDepartureDate: json['afterDepartureDate'] as String,
     orderStatus: json['orderStatus'] as int,
-    deliverId: json['deliverId'] as int,
-    attachmentId: json['attachmentId'] as int,
-    geoPoint: json['geoPoint'],
+    deliverId: json['deliverId'] as String,
+    attachmentId: json['attachmentId'] as String,
+    geoPoString: json['geoPoString'],
     deliverMan: json['deliverMan'] as String,
     note: json['note'] as String,
   );
@@ -40,7 +40,7 @@ Map<String, dynamic> _$ClsOrderTransToJson(ClsOrderTrans instance) =>
       'orderStatus': instance.orderStatus,
       'deliverId': instance.deliverId,
       'attachmentId': instance.attachmentId,
-      'geoPoint': instance.geoPoint,
+      'geoPoString': instance.geoPoString,
       'deliverMan': instance.deliverMan,
       'note': instance.note,
     };

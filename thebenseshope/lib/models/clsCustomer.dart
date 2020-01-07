@@ -13,6 +13,7 @@ class ClsCustomer {
   String messagger;
   ClsGeoPoint geoPoint;
   String note;
+  String imageSrc;
   ClsCustomer(
       {this.customerId,
       this.customerName,
@@ -20,6 +21,7 @@ class ClsCustomer {
       this.contact,
       this.messagger,
       this.geoPoint,
+      this.imageSrc,
       this.note});
   factory ClsCustomer.fromJson(Map<String, dynamic> json) =>
       _$ClsCustomerFromJson(json);

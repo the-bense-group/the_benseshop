@@ -9,7 +9,7 @@ import 'package:thebenseshope/service/locator.dart';
 import 'package:thebenseshope/ui/Login/login.dart';
 
 void main() {
-  setupLocator();
+  // setupLocator();
   runApp(MyApp());
 }
 
