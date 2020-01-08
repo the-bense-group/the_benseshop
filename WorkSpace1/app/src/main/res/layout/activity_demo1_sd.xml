@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="@drawable/login_background"
+        android:layout_height="match_parent"
+        tools:context=".demo1.Demo1SdActivity">
+
+
+    <EditText
+            android:id="@+id/demo1_txtValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_secondary_background"
+            android:ems="10"
+            android:hint="Value"
+            android:inputType="number"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+            android:id="@+id/demo1_btnAdd"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:textAllCaps="false"
+            android:layout_marginTop="10dp"
+            android:layout_width="128dp"
+            android:background="@drawable/button_background"
+            app:layout_constraintEnd_toEndOf="@+id/demo1_txtValue"
+            app:layout_constraintTop_toBottomOf="@+id/demo1_txtValue" />
+</android.support.constraint.ConstraintLayout>

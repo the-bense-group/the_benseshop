@@ -1,0 +1,249 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="196dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="64dp"
+            app:title="Profile">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+                android:layout_gravity="center_vertical"
+               >
+                <ImageView
+                    android:id="@+id/toolbarImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:fitsSystemWindows="true"
+                    android:src="@drawable/code_android_logo"
+                    app:layout_collapseMode="parallax" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Administration"
+                    android:textSize="22dp"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Vattanachhanonn@gmail.com"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/lblAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account Info"
+                android:textColor="#999999"
+                android:paddingStart="10dp"
+                android:textSize="18dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/lblName_img"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="10dp"
+                android:paddingStart="10dp"
+                android:src="@drawable/ic_transfer_within_a_station_black_24dp"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/lblAccount" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Name"
+                android:textColor="#000000"
+                android:textSize="14dp"
+                app:layout_constraintStart_toEndOf="@+id/lblName_img"
+                app:layout_constraintTop_toBottomOf="@+id/lblAccount" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Developer"
+                android:textColor="#999999"
+                android:textSize="12dp"
+                app:layout_constraintStart_toEndOf="@+id/lblName_img"
+                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+            <ImageView
+                android:id="@+id/lblMobile_img"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:paddingStart="10dp"
+                android:src="@drawable/ic_transfer_within_a_station_black_24dp"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/lblName_img" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:textColor="#000000"
+                android:textSize="14dp"
+                app:layout_constraintStart_toEndOf="@+id/lblMobile_img"
+                app:layout_constraintTop_toBottomOf="@+id/lblName_img" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(855+) 972005060"
+                android:textColor="#999999"
+                android:textSize="12dp"
+                app:layout_constraintStart_toEndOf="@+id/lblMobile_img"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <ImageView
+                android:id="@+id/lblEmail_img"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:paddingStart="10dp"
+                android:src="@drawable/ic_transfer_within_a_station_black_24dp"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/lblMobile_img" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textColor="#000000"
+                app:layout_constraintStart_toEndOf="@+id/lblEmail_img"
+                app:layout_constraintTop_toBottomOf="@+id/lblMobile_img" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Vattanachhanonn@gmail.com"
+                android:textColor="#999999"
+                android:textSize="12dp"
+                app:layout_constraintStart_toEndOf="@+id/lblEmail_img"
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+            <ImageView
+                android:id="@+id/Address_img"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:paddingStart="10dp"
+                android:src="@drawable/ic_transfer_within_a_station_black_24dp"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/lblEmail_img" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:textColor="#000000"
+                app:layout_constraintStart_toEndOf="@+id/Address_img"
+                app:layout_constraintTop_toBottomOf="@+id/lblEmail_img" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Phnom penh, Phnom Penh"
+                android:textColor="#999999"
+                android:textSize="12dp"
+                app:layout_constraintStart_toEndOf="@+id/Address_img"
+                app:layout_constraintTop_toBottomOf="@+id/textView26" />
+            <ImageView
+                android:id="@+id/DOB_img"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:paddingStart="10dp"
+                android:src="@drawable/ic_transfer_within_a_station_black_24dp"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/Address_img" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DOB"
+                android:textColor="#000000"
+                app:layout_constraintStart_toEndOf="@+id/DOB_img"
+                app:layout_constraintTop_toBottomOf="@+id/Address_img" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="02021992"
+                android:textColor="#999999"
+                android:textSize="12dp"
+                app:layout_constraintStart_toEndOf="@+id/DOB_img"
+                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:layout_width="176dp"
+        android:background="@drawable/buttonback_background"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_arrow_back_black_24dp"
+        android:text="Back to\n Home"
+        android:textAlignment="center"
+        android:paddingEnd="20dp"
+        android:paddingLeft="10dp"
+        android:textAllCaps="false"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:src="@drawable/ic_home_black_24dp"
+        app:layout_anchor="@id/appBar"
+        app:layout_anchorGravity="bottom|end" />
+</android.support.design.widget.CoordinatorLayout>
