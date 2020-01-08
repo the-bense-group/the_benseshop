@@ -30,7 +30,7 @@ dependencies:
   cloud_firestore: ^0.13.0+1
   firebase_core: 
   json_annotation: ^3.0.1
-  provider:
+  provider: ^4.0.1
   flutter_spinkit: ^4.1.1+1
   get_it: ^3.1.0
   random_string: ^2.0.1
@@ -39,6 +39,7 @@ dependencies:
   image_picker:
   flutter_mailer: ^0.4.1+1
   firebase_storage: ^3.1.1
+  image: 
 
 
 

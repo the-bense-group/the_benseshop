@@ -109,6 +109,7 @@ class _CtlSearchCustomerMobileMobile extends StatelessWidget {
         child: new FadeInImage.memoryNetwork(
           placeholder: transparentImage,
           image: uri,
+          fit: BoxFit.cover,
         ),
       ),
     );
@@ -121,8 +122,7 @@ class _CtlSearchCustomerMobileMobile extends StatelessWidget {
       child: Stack(
         children: [
           _buildImageProgressBar(),
-          _buildNetworkImage(
-              'https://randomuser.me/api/portraits/women/90.jpg'),
+          _buildNetworkImage(customer.imageSrc),
         ],
       ),
     );
@@ -238,134 +238,123 @@ class _CtlSearchCustomerMobileMobile extends StatelessWidget {
                                     height:
                                         (MediaQuery.of(context).size.height -
                                                 56) /
-                                            8,
-                                    padding: EdgeInsets.only(
-                                        left: 0.0, top: 12.0, bottom: 12),
+                                            9,
                                     child: InkWell(
                                       onTap: () {
                                         _ctl.selectedCustomer(objCustomer);
                                       },
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Expanded(
-                                                  flex: 3,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8.0),
-                                                    child: CircleAvatar(
-                                                      radius: 36,
-                                                      backgroundColor:
-                                                          Colors.white,
-                                                      child: Container(
-                                                        // child: ClipOval(
-                                                        //   child: Image.network(_ctl
-                                                        //       .getImageUrl(
-                                                        //           objCustomer
-                                                        //               .customerId)
-                                                        //       .toString()),
-                                                        // ),
-                                                        // decoration: BoxDecoration(
-                                                        //     shape:
-                                                        //         BoxShape.circle,
-                                                        //     border: Border.all(
-                                                        //         width: 1,
-                                                        //         color: Theme.of(
-                                                        //                 context)
-                                                        //             .primaryColor)),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 6,
-                                                  child: Container(
-                                                      height: double.infinity,
-                                                      padding: EdgeInsets.only(
-                                                          left: 6.0, top: 6),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: <Widget>[
-                                                          Text(
-                                                            objCustomer
-                                                                .customerName,
-                                                            style: TextStyle(
-                                                                fontSize: 15,
-                                                                color: Colors
-                                                                    .black54),
-                                                          ),
-                                                          Text(
-                                                            objCustomer.address,
-                                                            style: TextStyle(
-                                                                fontSize: 13,
-                                                                color: Colors
-                                                                    .black54),
-                                                          ),
-                                                        ],
-                                                      )),
-                                                ),
-                                                Expanded(
-                                                  child: Container(),
-                                                ),
-                                                InkWell(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
-                                                  onTap: () {},
-                                                  child: Container(
-                                                    width: 30,
-                                                    padding: EdgeInsets.all(8),
-                                                    child: Icon(
-                                                      Icons.call,
-                                                      color: Theme.of(context)
-                                                          .accentColor,
-                                                    ),
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
-                                                  onTap: () {},
-                                                  child: Container(
-                                                    width: 48,
-                                                    padding: EdgeInsets.all(8),
-                                                    child: Icon(
-                                                      Icons.chat,
-                                                      color: Theme.of(context)
-                                                          .primaryColorDark,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                left: 60.0, top: 6.0),
-                                            decoration: BoxDecoration(
-                                                border: Border(
-                                                    bottom: BorderSide(
-                                                        color: Colors.grey
-                                                            .withOpacity(.6),
-                                                        width: 1))),
-                                          ),
-                                        ],
-                                      ),
+                                      child: buildPersonRow(objCustomer),
+                                      // child: Column(
+                                      //   mainAxisSize: MainAxisSize.min,
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.spaceBetween,
+                                      //   children: <Widget>[
+                                      //     Expanded(
+                                      //       child: Row(
+                                      //         mainAxisAlignment:
+                                      //             MainAxisAlignment
+                                      //                 .spaceBetween,
+                                      //         children: <Widget>[
+                                      //           Expanded(
+                                      //             flex: 3,
+                                      //             child: Padding(
+                                      //               padding:
+                                      //                   const EdgeInsets.only(
+                                      //                       left: 8.0),
+                                      //               child:                                                     Container(
+                                      //                 width: 48,
+                                      //                 height: 48,
+
+                                      //                 child:_ctl.objCustomer.imageSrc!=null? Stack(
+                                      //                   children: [
+                                      //                     _buildImageProgressBar(),
+                                      //                     _buildNetworkImage(
+                                      //                       _ctl.objCustomer.imageSrc),
+                                      //                   ],
+                                      //                 ):Container(),
+                                      //               ),
+                                      //             ),
+                                      //           ),
+                                      //           Expanded(
+                                      //             flex: 6,
+                                      //             child: Container(
+                                      //                 height: double.infinity,
+                                      //                 padding: EdgeInsets.only(
+                                      //                     left: 6.0, top: 6),
+                                      //                 child: Column(
+                                      //                   crossAxisAlignment:
+                                      //                       CrossAxisAlignment
+                                      //                           .start,
+                                      //                   mainAxisAlignment:
+                                      //                       MainAxisAlignment
+                                      //                           .spaceAround,
+                                      //                   children: <Widget>[
+                                      //                     Text(
+                                      //                       objCustomer
+                                      //                           .customerName,
+                                      //                       style: TextStyle(
+                                      //                           fontSize: 15,
+                                      //                           color: Colors
+                                      //                               .black54),
+                                      //                     ),
+                                      //                     Text(
+                                      //                       objCustomer.address,
+                                      //                       style: TextStyle(
+                                      //                           fontSize: 13,
+                                      //                           color: Colors
+                                      //                               .black54),
+                                      //                     ),
+                                      //                   ],
+                                      //                 )),
+                                      //           ),
+                                      //           Expanded(
+                                      //             child: Container(),
+                                      //           ),
+                                      //           InkWell(
+                                      //             borderRadius:
+                                      //                 BorderRadius.circular(
+                                      //                     100),
+                                      //             onTap: () {},
+                                      //             child: Container(
+                                      //               width: 30,
+                                      //               padding: EdgeInsets.all(8),
+                                      //               child: Icon(
+                                      //                 Icons.call,
+                                      //                 color: Theme.of(context)
+                                      //                     .accentColor,
+                                      //               ),
+                                      //             ),
+                                      //           ),
+                                      //           InkWell(
+                                      //             borderRadius:
+                                      //                 BorderRadius.circular(
+                                      //                     100),
+                                      //             onTap: () {},
+                                      //             child: Container(
+                                      //               width: 48,
+                                      //               padding: EdgeInsets.all(8),
+                                      //               child: Icon(
+                                      //                 Icons.chat,
+                                      //                 color: Theme.of(context)
+                                      //                     .primaryColorDark,
+                                      //               ),
+                                      //             ),
+                                      //           ),
+                                      //         ],
+                                      //       ),
+                                      //     ),
+                                      //     Container(
+                                      //       margin: EdgeInsets.only(
+                                      //           left: 60.0, top: 6.0),
+                                      //       decoration: BoxDecoration(
+                                      //           border: Border(
+                                      //               bottom: BorderSide(
+                                      //                   color: Colors.grey
+                                      //                       .withOpacity(.6),
+                                      //                   width: 1))),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                     ),
                                   ))));
                         }),

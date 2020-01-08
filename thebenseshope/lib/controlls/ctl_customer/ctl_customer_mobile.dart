@@ -370,15 +370,24 @@ class __CtlCustomerMobileState extends State<_CtlCustomerMobile> {
                             fit: StackFit.passthrough,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.symmetric(vertical: 18.0),
+                                padding: EdgeInsets.symmetric(vertical: 14.0),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                     color: Theme.of(context).accentColor,
                                     borderRadius: BorderRadius.circular(100)),
-                                child: Text(
-                                  'Shipping',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(Icons.person_add,color:Colors.white,size:32),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left:6.0),
+                                      child: Text(
+                                        'Add Customer',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               Positioned.fill(

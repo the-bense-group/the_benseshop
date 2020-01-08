@@ -94,7 +94,7 @@ class OrderController extends ChangeNotifier {
             'gs://the-bense-ecommerce.appspot.com/Customer/${customerId.toString()}');
     dynamic url =
         await ref.then((doc) => doc.getDownloadURL()).catchError((err) => {});
-    print(url + "ddddddddddddddddddddd");
+
     return url;
   }
   // Future<Product> getProductById(String id) async {

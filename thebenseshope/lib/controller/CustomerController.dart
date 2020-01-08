@@ -5,11 +5,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:image/image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:random_string/random_string.dart';
 import 'package:thebenseshope/models/clsCustomer.dart';
 import 'package:thebenseshope/service/clsApi.dart';
 import 'package:path/path.dart' as Path;
+import 'package:image/image.dart' as img;
 
 class CustomerController extends ChangeNotifier {
   BuildContext context;
@@ -98,23 +100,38 @@ class CustomerController extends ChangeNotifier {
     if (!checkValidate()) return;
     setBusy();
     objCustomer.customerId = randomNumeric(8);
-    await uploadFile(objCustomer.customerId);
-    await _api.addDocument(objCustomer.toJson()).then((_) {
-      objCustomer = ClsCustomer();
-      resetBusy();
-      Flushbar(
-        icon: Icon(
-          Icons.check_circle_outline,
-          color: Colors.white,
-          size: 26,
-        ),
-        flushbarPosition: FlushbarPosition.TOP,
-        backgroundColor: Theme.of(context).primaryColor,
-        title: "Success",
-        message: 'Your transaction has been completed',
-        duration: Duration(seconds: 3),
-      )..show(context);
-      notifyListeners();
+//    await uploadFile(objCustomer.customerId);
+
+    StorageReference storageReference = FirebaseStorage.instance
+        .ref()
+        .child('Customer/${objCustomer.customerId.toString()}');
+
+    var _image = decodeImage(image.readAsBytesSync());
+    var thumbnail = copyResize(_image, width: 256, height: 256);
+    var thumb = img.encodePng(thumbnail);
+    StorageUploadTask uploadTask = storageReference.putData(thumb);
+    await uploadTask.onComplete;
+    await storageReference.getDownloadURL().then((fileURL) {
+      uploadedFileURL = fileURL;
+      objCustomer.imageSrc = uploadedFileURL;
+      _api.addDocument(objCustomer.toJson()).then((_) {
+        objCustomer = ClsCustomer();
+        resetBusy();
+        Flushbar(
+          icon: Icon(
+            Icons.check_circle_outline,
+            color: Colors.white,
+            size: 26,
+          ),
+          flushbarPosition: FlushbarPosition.TOP,
+          backgroundColor: Theme.of(context).primaryColor,
+          title: "Success",
+          message: 'Your transaction has been completed',
+          duration: Duration(seconds: 3),
+        )..show(context);
+        clearImage();
+        notifyListeners();
+      });
     });
 
     return;
@@ -126,8 +143,8 @@ class CustomerController extends ChangeNotifier {
 
   Future chooseFile() async {
     await ImagePicker.pickImage(
-      source: ImageSource.gallery,
-    ).then((img) {
+            source: ImageSource.gallery, maxHeight: 1800, maxWidth: 1200)
+        .then((img) {
       image = img;
       notifyListeners();
     });
@@ -136,6 +153,8 @@ class CustomerController extends ChangeNotifier {
   Future chooseCamera() async {
     await ImagePicker.pickImage(
       source: ImageSource.camera,
+      maxHeight: 1200,
+      maxWidth: 1800,
     ).then((img) {
       image = img;
       notifyListeners();
